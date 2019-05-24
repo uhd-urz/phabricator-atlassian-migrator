@@ -1,0 +1,37 @@
+{:confluence
+ {:endpoint "https://..."
+  :username "..."
+  :password "..."}
+
+ :jira
+ {:endpoint "https://..."
+  :username "..."
+  :password "..."
+  :admin ; Only required if you need to create/delete projects or their components
+  {:username "..."
+   :password "..."}
+  :export-task-reporters false ; Requires admin rights!
+  :export-task-assignees false ; Requires all user accounts to exist!
+  ; Source: https://.../rest/api/2/project/type
+  :project-type-key "software"
+  ; Source: https://confluence.atlassian.com/jirakb/creating-projects-via-rest-api-in-jira-963651978.html
+  :project-template "com.pyxis.greenhopper.jira:gh-scrum-template"
+  ; Source: https://.../rest/api/2/issuetype
+  :issue-type-name "Task"}
+
+ :phabricator
+ {:connection-type :http
+  :ssh
+  {:user "..."
+   :host "..."
+   :phabricator-path "/path/to/phabricator/installation"}
+  :http
+  {:endpoint "https://..."
+   :api-token "..."}} ; User needs to be omnipotent, e.g. by patching the source!
+
+ :mappings
+ {:users "phabricator-user-mapping.csv" ; 2 columns: Phabricator "username", JIRA "userid"
+  :projects "phabricator-project-mapping.csv" ; 2 columns: Phabricator project "name", JIRA project "key"
+  :wiki "phabricator-wiki-mapping.csv"} ; 2 columns: Phabricator wiki "path", Phabricator project "name"
+
+ :subproject-component-blacklist ["..."]} ; Names of projects for which Phabricator subprojects are not JIRA components
